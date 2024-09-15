@@ -37,6 +37,8 @@ if load:
 
     t1.max_id = max(ids)
 
+success = True
+
 if (sys.argv[1] == 'add'):
     t1.add_new_task(sys.argv[2])
     t1.list_tasks()

@@ -58,7 +58,7 @@ class TaskManager:
 
     def delete_task(self, id) -> bool:
         for task in self._tasks:
-            if task == id:
+            if task.id == id:
                 self._tasks.remove(task)
                 return True
         return False
