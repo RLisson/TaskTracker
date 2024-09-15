@@ -61,10 +61,12 @@ class TaskManager:
             if task == id:
                 self._tasks.remove(task)
 
-    def update_task(self, id, description, status: Status | None) -> None:
+    def update_task(self, id: int, description: str) -> bool:
         for task in self._tasks:
-            if task == id:
+            if task.id == id:
                 task.description = description
+                return True
+        return False
 
     def list_tasks(self) -> None:
         for task in self._tasks:
