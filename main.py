@@ -1,5 +1,6 @@
 from pathlib import Path
-from TaskTracker import Task, TaskManager
+from datetime import datetime
+from TaskTracker import Task, TaskManager, Status
 import os
 import json
 
@@ -19,14 +20,15 @@ else:
         load = None
 t1 = TaskManager(FILE)
 
-ids = set()
 if load:
+    ids = set()
+    date_format = "%Y-%m-%d %H:%M:%S.%f"
     for dict_ in load:
-        task = Task(dict_['id'], dict_['description'], dict_['status'])
+        status = Status[dict_['status'][7::]]
+        task = Task(dict_['id'], dict_['description'], status)
+        created = datetime.strptime(dict_['created_at'], date_format)
+        task.created_at = created
         ids.add(dict_['id'])
-t1.max_id = max(ids)
+        t1.add_task(task)
 
-t1.add_new_task("gooo")
-t1.add_new_task("aaaa")
-
-t1.dump_all()
+    t1.max_id = max(ids)
