@@ -56,18 +56,44 @@ class TaskManager:
         with open(self.file, 'r', encoding='utf8') as f:
             print(json.load(f))
 
-    def delete_task(self, id) -> None:
+    def delete_task(self, id) -> bool:
         for task in self._tasks:
             if task == id:
                 self._tasks.remove(task)
+                return True
+        return False
 
-    def update_task(self, id: int, description: str) -> bool:
+    def update_task_description(self, id: int, description: str) -> bool:
         for task in self._tasks:
             if task.id == id:
                 task.description = description
+                task.updated_at = datetime.now()
+                return True
+        return False
+
+    def update_task_status(self, id: int, status: Status) -> bool:
+        for task in self._tasks:
+            if task.id == id:
+                task.status = status
+                task.updated_at = datetime.now()
                 return True
         return False
 
     def list_tasks(self) -> None:
         for task in self._tasks:
             print(task)
+
+    def list_done_tasks(self) -> None:
+        for task in self._tasks:
+            if task.status == Status.Done:
+                print(task)
+
+    def list_todo_tasks(self) -> None:
+        for task in self._tasks:
+            if task.status == Status.Todo:
+                print(task)
+
+    def list_in_progress_tasks(self) -> None:
+        for task in self._tasks:
+            if task.status == Status.In_progress:
+                print(task)
