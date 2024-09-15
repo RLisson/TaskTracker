@@ -7,7 +7,7 @@ Clone the repository and run the following command
 
 ```bash
 # Add a new task
-python3 ./main.py add "task description"`
+python3 ./main.py add "task description"
 
 # Show tasks
 python3 ./main.py list
